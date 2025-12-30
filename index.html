@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mojtaba Al-Saalih - Portfolio</title>
-    <!-- تنبيه: تأكد من وضع صورة mojtapa.webp بجانب ملف الموقع -->
+    <!-- تنبيه: تأكد من أن ملف الصورة موجود بجانب ملف الموقع -->
     <link rel="icon" href="mojtapa.webp" type="image/webp">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -114,7 +114,7 @@
             font-size: 2rem;
             color: var(--secondary);
             margin-bottom: 2rem;
-            min-height: 10px; /* لضمان وجود مسافة حتى لو كان فارغاً */
+            min-height: 10px;
         }
 
         h3 {
@@ -131,6 +131,35 @@
             transform: scale(1.1);
             box-shadow: 0 5px 15px rgba(110, 87, 224, 0.4);
         }
+
+        /* PYXIS Animation Styles - تمت إعادتها */
+        .pyxis-wrapper {
+            display: flex; justify-content: center; align-items: center;
+            margin-top: 60px; padding-bottom: 30px;
+            background-color: transparent; direction: ltr !important;
+            position: relative;
+        }
+        .pyxis-link-overlay {
+            position: absolute; top: -15px; left: -15px; right: -15px; bottom: -15px;
+            z-index: 10; cursor: pointer;
+        }
+        .pyxis-animation {
+            font-family: 'Courier New', monospace; font-size: 14px; font-weight: 700;
+            letter-spacing: 8px; display: flex; flex-direction: row;
+            position: relative; z-index: 1;
+        }
+        .pyxis-animation span {
+            color: #9ca3af; opacity: 0.5; animation: pyxis-wave 3s infinite ease-in-out;
+        }
+        @keyframes pyxis-wave {
+            0%, 100% { opacity: 0.5; transform: translateY(0); }
+            50% { opacity: 1; color: #ffffff; text-shadow: 0 0 5px rgba(255,255,255,0.5); }
+        }
+        .pyxis-animation span:nth-child(1) { animation-delay: 0.0s; }
+        .pyxis-animation span:nth-child(2) { animation-delay: 0.2s; }
+        .pyxis-animation span:nth-child(3) { animation-delay: 0.4s; }
+        .pyxis-animation span:nth-child(4) { animation-delay: 0.6s; }
+        .pyxis-animation span:nth-child(5) { animation-delay: 0.8s; }
     </style>
 </head>
 <body>
@@ -144,7 +173,6 @@
     <div class="content container">
         <div class="section text-center">
             <h1 data-lang="name">مجتبى الصالح</h1>
-            <!-- تم إفراغ النص هنا كما طلبت -->
             <h2 data-lang="title"></h2>
         </div>
 
@@ -201,6 +229,14 @@
                 </a>
             </div>
         </div>
+
+        <!-- هنا تم الاحتفاظ بالأنيميشن في الأسفل فقط -->
+        <div class="pyxis-wrapper">
+            <a href="https://mojtaba-alsaalih-portfolio.vercel.app/" target="_blank" class="pyxis-link-overlay"></a>
+            <div class="pyxis-animation">
+                <span>P</span><span>Y</span><span>X</span><span>I</span><span>S</span>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -209,7 +245,7 @@
             ar: {
                 dir: 'rtl',
                 name: 'مجتبى الصالح',
-                title: '', // فارغ حسب الطلب
+                title: '', 
                 aboutTitle: 'نبذة عني',
                 aboutText: 'متخصص في تطوير التطبيقات بدون برمجة، والأتمتة، وتحليل الأسواق المالية. أعمل على تطوير حلول رقمية وتقديم خدمات قائمة على الأتمتة وتحليل البيانات.',
                 skillsTitle: 'المهارات',
@@ -225,7 +261,7 @@
             en: {
                 dir: 'ltr',
                 name: 'Mojtaba Al-Saalih',
-                title: '', // Empty as requested
+                title: '',
                 aboutTitle: 'About Me',
                 aboutText: 'Specialized in no-code application development, automation, and financial market analysis. Working on developing digital solutions and providing automation and data analysis services.',
                 skillsTitle: 'Skills',
