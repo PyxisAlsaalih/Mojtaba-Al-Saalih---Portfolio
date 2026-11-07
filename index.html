@@ -6,26 +6,37 @@
     <title>Mojtaba Al-Saalih - Portfolio</title>
     <!-- تنبيه: تأكد من أن ملف الصورة موجود بجانب ملف الموقع -->
     <link rel="icon" href="mojtapa.webp" type="image/webp">
+    
+    <!-- الخطوط والمكتبات الخارجية -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Fira+Code:wght@400;600;700&display=swap');
 
         :root {
-            --primary: #6e57e0;
-            --secondary: #f5f5f5;
-            --dark: #0a0a0a;
-            --light: #ffffff;
-            --gradient: linear-gradient(135deg, #6e57e0, #8b74ff);
+            --bg-dark: #0f1013;
+            --bg-card: rgba(22, 25, 33, 0.75);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --code-blue: #58a6ff;
+            --code-white: #f0f6fc;
+            --code-orange: #e06c53;
+            --code-green: #3fb950;
+            --text-muted: #8b949e;
+        }
+
+        * {
+            box-sizing: border-box;
         }
 
         body {
             font-family: 'Cairo', sans-serif;
-            background: var(--dark);
-            color: var(--light);
-            line-height: 1.7;
+            background-color: var(--bg-dark);
+            color: var(--code-white);
+            line-height: 1.8;
             overflow-x: hidden;
+            margin: 0;
+            padding: 0;
         }
 
         .canvas-container {
@@ -35,126 +46,213 @@
             width: 100%;
             height: 100vh;
             z-index: -1;
-            background: radial-gradient(circle at center, #0a0a2a 0%, #000000 100%);
+            background: radial-gradient(circle at 50% 20%, #161a24 0%, #0c0d10 80%);
         }
 
-        .content {
-            position: relative;
-            padding: 4rem 2rem;
-        }
-
-        .section {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            padding: 3rem;
-            border-radius: 20px;
-            margin-bottom: 3rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transform: translateY(0);
-            transition: all 0.3s ease;
-        }
-
-        .section:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .skill-tag {
-            background: var(--gradient);
-            padding: 0.8rem 1.5rem;
-            border-radius: 50px;
-            margin: 0.5rem;
-            display: inline-block;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .skill-tag:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(110, 87, 224, 0.4);
-        }
-
+        /* Language Switcher */
         .language-selector {
             position: fixed;
-            top: 2rem;
-            right: 2rem;
+            top: 1.5rem;
+            right: 1.5rem;
             z-index: 1000;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 0.5rem;
-            border-radius: 50px;
-            backdrop-filter: blur(10px);
+            background: rgba(18, 20, 26, 0.85);
+            padding: 0.35rem 0.5rem;
+            border-radius: 12px;
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            display: flex;
+            gap: 0.3rem;
         }
 
         .language-btn {
             background: transparent;
-            color: var(--light);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 0.7rem 1.5rem;
-            margin: 0 0.2rem;
-            border-radius: 50px;
+            color: var(--text-muted);
+            border: 1px solid transparent;
+            padding: 0.4rem 1rem;
+            border-radius: 8px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.25s ease;
+            font-family: 'Fira Code', 'Cairo', sans-serif;
         }
 
-        .language-btn:hover {
-            background: var(--gradient);
-            border-color: transparent;
+        .language-btn:hover, .language-btn.active {
+            color: var(--code-white);
+            background: rgba(88, 166, 255, 0.12);
+            border-color: rgba(88, 166, 255, 0.35);
+        }
+
+        .content {
+            position: relative;
+            padding: 5rem 1.5rem 2rem;
+            max-width: 900px;
+        }
+
+        /* Hero Code Brand Logo */
+        .brand-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(14, 16, 20, 0.9);
+            border: 1px solid var(--border-color);
+            padding: 1.2rem 2.2rem;
+            border-radius: 16px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            font-family: 'Fira Code', monospace;
+            font-weight: 700;
+            font-size: 2.2rem;
+            letter-spacing: 2px;
+            direction: ltr !important;
+        }
+
+        .code-bracket-left { color: var(--code-blue); }
+        .code-text-white   { color: var(--code-white); }
+        .code-text-orange  { color: var(--code-orange); }
+        .code-slash        { color: var(--code-green); }
+        .code-bracket-right{ color: var(--code-green); }
+
+        /* Sections */
+        .section {
+            background: var(--bg-card);
+            backdrop-filter: blur(14px);
+            padding: 2.5rem;
+            border-radius: 16px;
+            margin-bottom: 2.5rem;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+            transition: transform 0.25s ease, border-color 0.25s ease;
+            position: relative;
+        }
+
+        .section:hover {
+            transform: translateY(-4px);
+            border-color: rgba(88, 166, 255, 0.3);
         }
 
         h1 {
-            font-size: 4rem;
+            font-size: 2.8rem;
             font-weight: 700;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 1rem;
+            color: var(--code-white);
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
         }
 
         h2 {
-            font-size: 2rem;
-            color: var(--secondary);
-            margin-bottom: 2rem;
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 0;
             min-height: 10px;
+            font-family: 'Fira Code', 'Cairo', monospace;
         }
 
         h3 {
-            font-size: 1.8rem;
-            color: var(--primary);
-            margin-bottom: 1.5rem;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--code-blue);
+            margin-bottom: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
         }
 
-        .contact-link {
-            transition: all 0.3s ease;
+        h3::before {
+            content: '//';
+            color: var(--code-green);
+            font-family: 'Fira Code', monospace;
+            font-weight: 600;
         }
 
-        .contact-link:hover .skill-tag {
-            transform: scale(1.1);
-            box-shadow: 0 5px 15px rgba(110, 87, 224, 0.4);
+        /* Tags and buttons */
+        .skill-tag {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--code-white);
+            padding: 0.55rem 1.2rem;
+            border-radius: 10px;
+            margin: 0.4rem;
+            display: inline-block;
+            font-weight: 500;
+            font-size: 0.95rem;
+            font-family: 'Fira Code', 'Cairo', monospace;
+            transition: all 0.25s ease;
+            text-decoration: none;
         }
 
-        /* PYXIS Animation Styles - تمت إعادتها */
+        .skill-tag:hover {
+            background: rgba(88, 166, 255, 0.1);
+            border-color: var(--code-blue);
+            color: var(--code-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(88, 166, 255, 0.15);
+        }
+
+        .project-tag {
+            border-color: rgba(224, 108, 83, 0.25);
+            background: rgba(224, 108, 83, 0.04);
+        }
+
+        .project-tag:hover {
+            border-color: var(--code-orange);
+            color: var(--code-orange);
+            background: rgba(224, 108, 83, 0.12);
+            box-shadow: 0 4px 15px rgba(224, 108, 83, 0.2);
+        }
+
+        .contact-tag {
+            border-color: rgba(63, 185, 80, 0.25);
+            background: rgba(63, 185, 80, 0.04);
+        }
+
+        .contact-tag:hover {
+            border-color: var(--code-green);
+            color: var(--code-green);
+            background: rgba(63, 185, 80, 0.12);
+            box-shadow: 0 4px 15px rgba(63, 185, 80, 0.2);
+        }
+
+        /* PYXIS Animation Styles */
         .pyxis-wrapper {
-            display: flex; justify-content: center; align-items: center;
-            margin-top: 60px; padding-bottom: 30px;
-            background-color: transparent; direction: ltr !important;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 40px;
+            padding-bottom: 30px;
+            background-color: transparent;
+            direction: ltr !important;
             position: relative;
         }
+
         .pyxis-link-overlay {
-            position: absolute; top: -15px; left: -15px; right: -15px; bottom: -15px;
-            z-index: 10; cursor: pointer;
+            position: absolute;
+            top: -15px; left: -15px; right: -15px; bottom: -15px;
+            z-index: 10;
+            cursor: pointer;
         }
+
         .pyxis-animation {
-            font-family: 'Courier New', monospace; font-size: 14px; font-weight: 700;
-            letter-spacing: 8px; display: flex; flex-direction: row;
-            position: relative; z-index: 1;
+            font-family: 'Fira Code', monospace;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 8px;
+            display: flex;
+            flex-direction: row;
+            position: relative;
+            z-index: 1;
         }
+
         .pyxis-animation span {
-            color: #9ca3af; opacity: 0.5; animation: pyxis-wave 3s infinite ease-in-out;
+            color: var(--text-muted);
+            opacity: 0.5;
+            animation: pyxis-wave 3s infinite ease-in-out;
         }
+
         @keyframes pyxis-wave {
-            0%, 100% { opacity: 0.5; transform: translateY(0); }
-            50% { opacity: 1; color: #ffffff; text-shadow: 0 0 5px rgba(255,255,255,0.5); }
+            0%, 100% { opacity: 0.4; transform: translateY(0); color: var(--text-muted); }
+            50% { opacity: 1; color: var(--code-blue); text-shadow: 0 0 10px rgba(88, 166, 255, 0.6); }
         }
+
         .pyxis-animation span:nth-child(1) { animation-delay: 0.0s; }
         .pyxis-animation span:nth-child(2) { animation-delay: 0.2s; }
         .pyxis-animation span:nth-child(3) { animation-delay: 0.4s; }
@@ -164,23 +262,36 @@
 </head>
 <body>
     <div class="language-selector">
-        <button class="language-btn" onclick="changeLanguage('ar')">العربية</button>
-        <button class="language-btn" onclick="changeLanguage('en')">English</button>
+        <button class="language-btn active" id="btn-ar" onclick="changeLanguage('ar')">العربية</button>
+        <button class="language-btn" id="btn-en" onclick="changeLanguage('en')">English</button>
     </div>
 
     <div class="canvas-container" id="canvas"></div>
     
     <div class="content container">
+        <!-- قسم العنوان وهوية الكود -->
         <div class="section text-center">
+            <div class="brand-badge">
+                <span class="code-bracket-left">&lt;</span>
+                <span class="code-text-white">MOJTAPA</span>
+                <span class="mx-2"></span>
+                <span class="code-text-orange">ALI</span>
+                <span class="code-slash">/</span>
+                <span class="code-bracket-right">&gt;</span>
+            </div>
             <h1 data-lang="name">مجتبى الصالح</h1>
             <h2 data-lang="title"></h2>
         </div>
 
+        <!-- نبذة عني -->
         <div class="section">
             <h3 data-lang="aboutTitle">نبذة عني</h3>
-            <p data-lang="aboutText">مطور تطبيقات بدون برمجة، والأتمتة، وتحليل الأسواق المالية. أعمل على تطوير حلول رقمية وتقديم خدمات قائمة على الأتمتة وتحليل البيانات.</p>
+            <p data-lang="aboutText" style="color: #c9d1d9; font-size: 1.05rem;">
+                مطور تطبيقات بدون برمجة، والأتمتة، وتحليل الأسواق المالية. أعمل على تطوير حلول رقمية وتقديم خدمات قائمة على الأتمتة وتحليل البيانات.
+            </p>
         </div>
 
+        <!-- المهارات -->
         <div class="section">
             <h3 data-lang="skillsTitle">المهارات</h3>
             <div class="skill-tags">
@@ -197,40 +308,42 @@
             </div>
         </div>
 
+        <!-- المشاريع الشخصية -->
         <div class="section">
             <h3 data-lang="projectsTitle">المشاريع الشخصية</h3>
-            <div class="d-flex flex-wrap justify-content-center gap-3 mt-3">
-                <a href="https://btc-to-million.vercel.app/" target="_blank" class="text-decoration-none text-light contact-link">
-                    <div class="skill-tag"><i class="fas fa-bitcoin me-2"></i><span data-lang="btcProjectName">BTC to a Million Dollars</span></div>
+            <div class="d-flex flex-wrap justify-content-center gap-2 mt-2">
+                <a href="https://btc-to-million.vercel.app/" target="_blank" class="text-decoration-none">
+                    <div class="skill-tag project-tag"><i class="fab fa-bitcoin me-2" style="color: var(--code-orange);"></i><span data-lang="btcProjectName">BTC to a Million Dollars</span></div>
                 </a>
-                <a href="#" target="_blank" class="text-decoration-none text-light contact-link">
-                    <div class="skill-tag"><i class="fas fa-robot me-2"></i><span data-lang="project1Name">أدوات أتمتة No-Code</span></div>
+                <a href="#" target="_blank" class="text-decoration-none">
+                    <div class="skill-tag project-tag"><i class="fas fa-robot me-2" style="color: var(--code-blue);"></i><span data-lang="project1Name">أدوات أتمتة No-Code</span></div>
                 </a>
-                <a href="https://isx-analyst.streamlit.app/" target="_blank" class="text-decoration-none text-light contact-link">
-                    <div class="skill-tag"><i class="fas fa-chart-line me-2"></i><span data-lang="project2Name">المحلل المالي لسوق العراق</span></div>
+                <a href="https://isx-analyst.streamlit.app/" target="_blank" class="text-decoration-none">
+                    <div class="skill-tag project-tag"><i class="fas fa-chart-line me-2" style="color: var(--code-green);"></i><span data-lang="project2Name">المحلل المالي لسوق العراق</span></div>
                 </a>
-                <a href="https://warera.vercel.app/" target="_blank" class="text-decoration-none text-light contact-link">
-                    <div class="skill-tag"><i class="fas fa-laptop-code me-2"></i><span data-lang="project3Name">WarEra Analytics</span></div>
+                <a href="https://warera.vercel.app/" target="_blank" class="text-decoration-none">
+                    <div class="skill-tag project-tag"><i class="fas fa-laptop-code me-2" style="color: var(--code-blue);"></i><span data-lang="project3Name">WarEra Analytics</span></div>
                 </a>
             </div>
         </div>
 
+        <!-- تواصل معي -->
         <div class="section">
             <h3 data-lang="contactTitle">تواصل معي</h3>
-            <div class="d-flex justify-content-center gap-4">
-                <a href="https://www.linkedin.com/in/mojtapa-al-saalih" target="_blank" class="text-decoration-none text-light contact-link">
-                    <div class="skill-tag"><i class="fab fa-linkedin me-2"></i>Linked</div>
+            <div class="d-flex flex-wrap justify-content-center gap-3">
+                <a href="https://www.linkedin.com/in/mojtapa-al-saalih" target="_blank" class="text-decoration-none">
+                    <div class="skill-tag contact-tag"><i class="fab fa-linkedin me-2" style="color: var(--code-blue);"></i>LinkedIn</div>
                 </a>
-                <a href="mailto:mojtapa.alsaalih@gmail.com" class="text-decoration-none text-light contact-link">
-                    <div class="skill-tag"><i class="fas fa-envelope me-2"></i>Email</div>
+                <a href="mailto:mojtapa.alsaalih@gmail.com" class="text-decoration-none">
+                    <div class="skill-tag contact-tag"><i class="fas fa-envelope me-2" style="color: var(--code-orange);"></i>Email</div>
                 </a>
-                <a href="https://t.me/PyxisAl_Saalih" target="_blank" class="text-decoration-none text-light contact-link">
-                    <div class="skill-tag"><i class="fab fa-telegram me-2"></i>Telegram</div>
+                <a href="https://t.me/PyxisAl_Saalih" target="_blank" class="text-decoration-none">
+                    <div class="skill-tag contact-tag"><i class="fab fa-telegram me-2" style="color: var(--code-green);"></i>Telegram</div>
                 </a>
             </div>
         </div>
 
-        <!-- هنا تم الاحتفاظ بالأنيميشن في الأسفل فقط -->
+        <!-- توقيع PYXIS -->
         <div class="pyxis-wrapper">
             <a href="https://mojtaba-alsaalih-portfolio.vercel.app/" target="_blank" class="pyxis-link-overlay"></a>
             <div class="pyxis-animation">
@@ -280,6 +393,9 @@
             const htmlRoot = document.getElementById('htmlRoot');
             htmlRoot.lang = lang;
             htmlRoot.dir = languages[lang].dir;
+
+            document.getElementById('btn-ar').classList.toggle('active', lang === 'ar');
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
             
             document.querySelectorAll('[data-lang]').forEach(element => {
                 const key = element.getAttribute('data-lang');
@@ -289,12 +405,12 @@
             });
         }
 
-        // Three.js animation setup
+        // Three.js animation setup - تم تحديث الألوان لتناسب الثيم الجديد
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setClearColor(0x0a192f, 0.3);
+        renderer.setClearColor(0x0a0c10, 0.4);
         
         const canvasContainer = document.getElementById('canvas');
         if(canvasContainer) {
@@ -309,22 +425,15 @@
             mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
         });
 
-        // Create stars for Pyxis constellation
-        const starGeometry = new THREE.SphereGeometry(0.15, 32, 32);
-        
-        // Add background stars
+        // Add background tech-dust stars
         const backgroundStars = [];
-        for(let i = 0; i < 200; i++) {
-            const geometry = new THREE.SphereGeometry(Math.random() * 0.05, 8, 8);
+        for(let i = 0; i < 180; i++) {
+            const geometry = new THREE.SphereGeometry(Math.random() * 0.04, 8, 8);
             const material = new THREE.MeshPhongMaterial({
-                color: 0xffffff,
-                emissive: new THREE.Color(
-                    0.5 + Math.random() * 0.5,
-                    0.5 + Math.random() * 0.5,
-                    0.5 + Math.random() * 0.5
-                ),
-                emissiveIntensity: 0.8,
-                shininess: 100
+                color: 0x58a6ff,
+                emissive: new THREE.Color(0.2, 0.4, 0.8),
+                emissiveIntensity: 0.6,
+                shininess: 80
             });
             const star = new THREE.Mesh(geometry, material);
             star.position.set(
@@ -336,13 +445,14 @@
             backgroundStars.push(star);
         }
 
-        // Star positions for Pyxis
+        // Star positions for Pyxis - ألوان الثيم (أزرق، برتقالي، أخضر)
+        const starGeometry = new THREE.SphereGeometry(0.14, 32, 32);
         const starPositions = [
-            { x: 0, y: 0, z: 0, scale: 0.25, color: 0xffffff },
-            { x: -2, y: 1, z: 0, scale: 0.2, color: 0xffff00 },
-            { x: 1, y: -2, z: 0, scale: 0.18, color: 0xffa500 },
-            { x: -1, y: -1.5, z: 0, scale: 0.15, color: 0xadd8e6 },
-            { x: 0.5, y: 1.5, z: 0, scale: 0.15, color: 0x0000ff }
+            { x: 0, y: 0, z: 0, scale: 0.25, color: 0x58a6ff },     // Cyan Blue
+            { x: -2, y: 1, z: 0, scale: 0.2, color: 0xe06c53 },     // Coral Orange
+            { x: 1, y: -2, z: 0, scale: 0.18, color: 0x3fb950 },    // Green
+            { x: -1, y: -1.5, z: 0, scale: 0.15, color: 0xf0f6fc }, // White
+            { x: 0.5, y: 1.5, z: 0, scale: 0.15, color: 0x58a6ff }  // Cyan Blue
         ];
 
         const stars = [];
@@ -350,8 +460,8 @@
             const starMaterial = new THREE.MeshPhongMaterial({
                 color: pos.color,
                 emissive: pos.color,
-                emissiveIntensity: 1,
-                shininess: 150
+                emissiveIntensity: 0.9,
+                shininess: 120
             });
             const star = new THREE.Mesh(starGeometry, starMaterial);
             star.position.set(pos.x, pos.y, pos.z);
@@ -363,8 +473,8 @@
         // Create constellation lines
         const lineGeometry = new THREE.BufferGeometry();
         const lineMaterial = new THREE.LineBasicMaterial({ 
-            color: 0x4A4A4A,
-            opacity: 0.3,
+            color: 0x30363d,
+            opacity: 0.5,
             transparent: true
         });
 
@@ -383,10 +493,10 @@
         scene.add(constellationLines);
 
         // Lighting
-        const ambientLight = new THREE.AmbientLight(0x202020);
+        const ambientLight = new THREE.AmbientLight(0x303030);
         scene.add(ambientLight);
         
-        const pointLight = new THREE.PointLight(0xffffff, 1.5);
+        const pointLight = new THREE.PointLight(0xffffff, 1.2);
         pointLight.position.set(5, 5, 5);
         scene.add(pointLight);
 
@@ -397,7 +507,7 @@
             requestAnimationFrame(animate);
             
             stars.forEach((star, index) => {
-                const twinkle = 1 + 0.15 * Math.sin(Date.now() * 0.001 + index * 0.5);
+                const twinkle = 1 + 0.15 * Math.sin(Date.now() * 0.0015 + index * 0.6);
                 star.scale.set(
                     starPositions[index].scale * twinkle,
                     starPositions[index].scale * twinkle,
@@ -407,11 +517,11 @@
 
             backgroundStars.forEach((star, index) => {
                 const twinkle = 1 + 0.3 * Math.sin(Date.now() * 0.001 + index * 0.1);
-                star.material.emissiveIntensity = twinkle * 0.5;
+                star.material.emissiveIntensity = twinkle * 0.4;
             });
 
-            camera.position.x += (mouseX * 0.5 - camera.position.x) * 0.02;
-            camera.position.y += (mouseY * 0.5 - camera.position.y) * 0.02;
+            camera.position.x += (mouseX * 0.4 - camera.position.x) * 0.02;
+            camera.position.y += (mouseY * 0.4 - camera.position.y) * 0.02;
             camera.lookAt(scene.position);
 
             renderer.render(scene, camera);
@@ -428,7 +538,3 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
-
-
-
