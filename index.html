@@ -89,29 +89,51 @@
             max-width: 900px;
         }
 
-        /* Hero Code Brand Logo */
+        /* Hero Code Brand Badge */
         .brand-badge {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             background: rgba(14, 16, 20, 0.9);
             border: 1px solid var(--border-color);
-            padding: 1.2rem 2.2rem;
+            padding: 1.2rem 2.4rem;
             border-radius: 16px;
-            margin-bottom: 1.5rem;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-            font-family: 'Fira Code', monospace;
+            font-family: 'Fira Code', 'Cairo', monospace;
             font-weight: 700;
             font-size: 2.2rem;
-            letter-spacing: 2px;
-            direction: ltr !important;
+            letter-spacing: 1px;
+            margin: 0 auto;
         }
 
-        .code-bracket-left { color: var(--code-blue); }
-        .code-text-white   { color: var(--code-white); }
-        .code-text-orange  { color: var(--code-orange); }
-        .code-slash        { color: var(--code-green); }
-        .code-bracket-right{ color: var(--code-green); }
+        /* ضبط اتجاه القراءة ديناميكياً لتجنب أي انعكاس */
+        [dir="rtl"] .brand-badge {
+            direction: rtl;
+        }
+
+        [dir="ltr"] .brand-badge {
+            direction: ltr;
+        }
+
+        .code-bracket-start {
+            color: var(--code-blue);
+            display: inline-block;
+            direction: ltr; /* يمنع قلب القوس */
+        }
+
+        .code-text-white {
+            color: var(--code-white);
+        }
+
+        .code-text-orange {
+            color: var(--code-orange);
+        }
+
+        .code-slash-end {
+            color: var(--code-green);
+            display: inline-block;
+            direction: ltr; /* يمنع قلب القوس والشرطة */
+        }
 
         /* Sections */
         .section {
@@ -129,22 +151,6 @@
         .section:hover {
             transform: translateY(-4px);
             border-color: rgba(88, 166, 255, 0.3);
-        }
-
-        h1 {
-            font-size: 2.8rem;
-            font-weight: 700;
-            color: var(--code-white);
-            margin-top: 0.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        h2 {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            margin-bottom: 0;
-            min-height: 10px;
-            font-family: 'Fira Code', 'Cairo', monospace;
         }
 
         h3 {
@@ -269,18 +275,15 @@
     <div class="canvas-container" id="canvas"></div>
     
     <div class="content container">
-        <!-- قسم العنوان وهوية الكود -->
-        <div class="section text-center">
-            <div class="brand-badge">
-                <span class="code-bracket-left">&lt;</span>
-                <span class="code-text-white">MOJTAPA</span>
-                <span class="mx-2"></span>
-                <span class="code-text-orange">ALI</span>
-                <span class="code-slash">/</span>
-                <span class="code-bracket-right">&gt;</span>
-            </div>
-            <h1 data-lang="name">مجتبى الصالح</h1>
-            <h2 data-lang="title"></h2>
+        <!-- قسم العنوان البرمجي الرئيسي دون تكرار بالأسفل -->
+        <div class="section text-center py-4">
+            <h1 class="brand-badge" id="brandBadge">
+                <span class="code-bracket-start">&lt;</span>
+                <span class="code-text-white" data-lang="brandFirst">مجتبى</span>
+                <span class="mx-1"></span>
+                <span class="code-text-orange" data-lang="brandSecond">الصالح</span>
+                <span class="code-slash-end">/&gt;</span>
+            </h1>
         </div>
 
         <!-- نبذة عني -->
@@ -353,12 +356,11 @@
     </div>
 
     <script>
-        // Language data
         const languages = {
             ar: {
                 dir: 'rtl',
-                name: 'مجتبى الصالح',
-                title: '', 
+                brandFirst: 'مجتبى',
+                brandSecond: 'الصالح',
                 aboutTitle: 'نبذة عني',
                 aboutText: 'متخصص في تطوير التطبيقات بدون برمجة، والأتمتة، وتحليل الأسواق المالية. أعمل على تطوير حلول رقمية وتقديم خدمات قائمة على الأتمتة وتحليل البيانات.',
                 skillsTitle: 'المهارات',
@@ -373,8 +375,8 @@
             },
             en: {
                 dir: 'ltr',
-                name: 'Mojtaba Al-Saalih',
-                title: '',
+                brandFirst: 'MOJTAPA',
+                brandSecond: 'AL-SAALIH',
                 aboutTitle: 'About Me',
                 aboutText: 'Specialized in no-code application development, automation, and financial market analysis. Working on developing digital solutions and providing automation and data analysis services.',
                 skillsTitle: 'Skills',
@@ -399,13 +401,13 @@
             
             document.querySelectorAll('[data-lang]').forEach(element => {
                 const key = element.getAttribute('data-lang');
-                if (languages[lang][key]) {
+                if (languages[lang][key] !== undefined) {
                     element.textContent = languages[lang][key];
                 }
             });
         }
 
-        // Three.js animation setup - تم تحديث الألوان لتناسب الثيم الجديد
+        // Three.js animation setup
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -417,7 +419,6 @@
             canvasContainer.appendChild(renderer.domElement);
         }
 
-        // Mouse tracking variables
         let mouseX = 0;
         let mouseY = 0;
         document.addEventListener('mousemove', (event) => {
@@ -445,14 +446,14 @@
             backgroundStars.push(star);
         }
 
-        // Star positions for Pyxis - ألوان الثيم (أزرق، برتقالي، أخضر)
+        // Star positions for Pyxis
         const starGeometry = new THREE.SphereGeometry(0.14, 32, 32);
         const starPositions = [
-            { x: 0, y: 0, z: 0, scale: 0.25, color: 0x58a6ff },     // Cyan Blue
-            { x: -2, y: 1, z: 0, scale: 0.2, color: 0xe06c53 },     // Coral Orange
-            { x: 1, y: -2, z: 0, scale: 0.18, color: 0x3fb950 },    // Green
-            { x: -1, y: -1.5, z: 0, scale: 0.15, color: 0xf0f6fc }, // White
-            { x: 0.5, y: 1.5, z: 0, scale: 0.15, color: 0x58a6ff }  // Cyan Blue
+            { x: 0, y: 0, z: 0, scale: 0.25, color: 0x58a6ff },
+            { x: -2, y: 1, z: 0, scale: 0.2, color: 0xe06c53 },
+            { x: 1, y: -2, z: 0, scale: 0.18, color: 0x3fb950 },
+            { x: -1, y: -1.5, z: 0, scale: 0.15, color: 0xf0f6fc },
+            { x: 0.5, y: 1.5, z: 0, scale: 0.15, color: 0x58a6ff }
         ];
 
         const stars = [];
@@ -470,7 +471,7 @@
             stars.push(star);
         });
 
-        // Create constellation lines
+        // Constellation lines
         const lineGeometry = new THREE.BufferGeometry();
         const lineMaterial = new THREE.LineBasicMaterial({ 
             color: 0x30363d,
@@ -492,7 +493,6 @@
         const constellationLines = new THREE.LineSegments(lineGeometry, lineMaterial);
         scene.add(constellationLines);
 
-        // Lighting
         const ambientLight = new THREE.AmbientLight(0x303030);
         scene.add(ambientLight);
         
@@ -502,7 +502,6 @@
 
         camera.position.z = 8;
 
-        // Animation loop
         function animate() {
             requestAnimationFrame(animate);
             
