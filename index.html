@@ -89,50 +89,54 @@
             max-width: 900px;
         }
 
-        /* Hero Code Brand Badge */
+        /* Hero Code Brand Badge - تم تثبيت اتجاه الوسم لمنع انعكاس الأقواس */
         .brand-badge {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             background: rgba(14, 16, 20, 0.9);
             border: 1px solid var(--border-color);
-            padding: 1.2rem 2.4rem;
+            padding: 1.1rem 2.4rem;
             border-radius: 16px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-            font-family: 'Fira Code', 'Cairo', monospace;
             font-weight: 700;
             font-size: 2.2rem;
             letter-spacing: 1px;
             margin: 0 auto;
+            direction: ltr !important;
+            unicode-bidi: isolate;
         }
 
-        /* ضبط اتجاه القراءة ديناميكياً لتجنب أي انعكاس */
-        [dir="rtl"] .brand-badge {
-            direction: rtl;
-        }
-
-        [dir="ltr"] .brand-badge {
-            direction: ltr;
-        }
-
-        .code-bracket-start {
+        .code-bracket-left {
             color: var(--code-blue);
+            font-family: 'Fira Code', monospace;
+            font-feature-settings: "rtlm" 0;
+            -webkit-font-feature-settings: "rtlm" 0;
             display: inline-block;
-            direction: ltr; /* يمنع قلب القوس */
+            direction: ltr !important;
+        }
+
+        .code-bracket-right {
+            color: var(--code-green);
+            font-family: 'Fira Code', monospace;
+            font-feature-settings: "rtlm" 0;
+            -webkit-font-feature-settings: "rtlm" 0;
+            display: inline-block;
+            direction: ltr !important;
         }
 
         .code-text-white {
             color: var(--code-white);
+            font-family: 'Cairo', 'Fira Code', sans-serif;
         }
 
         .code-text-orange {
             color: var(--code-orange);
+            font-family: 'Cairo', 'Fira Code', sans-serif;
         }
 
-        .code-slash-end {
-            color: var(--code-green);
-            display: inline-block;
-            direction: ltr; /* يمنع قلب القوس والشرطة */
+        .code-space {
+            font-family: 'Fira Code', monospace;
         }
 
         /* Sections */
@@ -275,14 +279,14 @@
     <div class="canvas-container" id="canvas"></div>
     
     <div class="content container">
-        <!-- قسم العنوان البرمجي الرئيسي دون تكرار بالأسفل -->
+        <!-- الشعار البرمجي الرئيسي دون تكرار ودون انكسار في الأقواس -->
         <div class="section text-center py-4">
-            <h1 class="brand-badge" id="brandBadge">
-                <span class="code-bracket-start">&lt;</span>
+            <h1 class="brand-badge" id="brandBadge" dir="ltr">
+                <span class="code-bracket-left">&lt;</span>
                 <span class="code-text-white" data-lang="brandFirst">مجتبى</span>
-                <span class="mx-1"></span>
+                <span class="code-space">&nbsp;</span>
                 <span class="code-text-orange" data-lang="brandSecond">الصالح</span>
-                <span class="code-slash-end">/&gt;</span>
+                <span class="code-bracket-right">/&gt;</span>
             </h1>
         </div>
 
@@ -338,7 +342,7 @@
                     <div class="skill-tag contact-tag"><i class="fab fa-linkedin me-2" style="color: var(--code-blue);"></i>LinkedIn</div>
                 </a>
                 <a href="mailto:mojtapa.alsaalih@gmail.com" class="text-decoration-none">
-                    <div class="skill-tag contact-tag"><i class="fas fa-envelope me-2" style="color: var(--code-red);"></i>Email</div>
+                    <div class="skill-tag contact-tag"><i class="fas fa-envelope me-2" style="color: var(--code-orange);"></i>Email</div>
                 </a>
                 <a href="https://t.me/PyxisAl_Saalih" target="_blank" class="text-decoration-none">
                     <div class="skill-tag contact-tag"><i class="fab fa-telegram me-2" style="color: var(--code-blue);"></i>Telegram</div>
